@@ -2,6 +2,8 @@
 module.exports = function(app)
 {
 
+app.set('views','../web');
+    
 app.get('/', function(req, res) {
 	res.render('index.ejs');
 });
@@ -9,7 +11,6 @@ app.get('/', function(req, res) {
 //------------------------------------------------
 //-- Serviços do Dashboard -----------------------
 //------------------------------------------------
-
 
 app.get('/ping', function(req, res) {
 	res.status(200).send("pong!");
