@@ -105,5 +105,5 @@ app.use(function(req, res, next){
 // ------------------------------------------------------------------------
 // Start Express Webserver
 //
-console.log('Iniciando o Web server Notarys Office);
+console.log('Iniciando o Web server Notarys Office');
 console.log('Webserver está escutando na port 80.');
