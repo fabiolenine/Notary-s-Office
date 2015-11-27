@@ -66,7 +66,7 @@ app.use(express.static('../web'));
 app.use(express.static('../lib'));
 
 // routes
-require('./modulos/routerlegadomd.js')(app);      // load our routes and pass in our app and fully configured passport
+require('./modulos/routerlegadodm.js')(app);      // load our routes and pass in our app and fully configured passport
 
 
 //
