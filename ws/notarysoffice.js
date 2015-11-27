@@ -20,7 +20,6 @@ var https               = require('https');
 var mongoose            = require('mongoose');
 var express             = require('express');
 var bodyParser          = require('body-parser');
-var session             = require('express-session');
 var MemoryStore         = require('connect').session;
 var vhost               = require('vhost');
 

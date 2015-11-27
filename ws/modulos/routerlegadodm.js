@@ -1,5 +1,5 @@
 // routerlegadosdm.js
-module.exports = function(app, detalheslegadodm)
+module.exports = function(app)
 {
 
 app.get('/', function(req, res) {
