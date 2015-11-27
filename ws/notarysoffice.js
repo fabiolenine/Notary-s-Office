@@ -32,7 +32,7 @@ var dbPath  = 'mongodb://localhost/reconhecimento';
 
 var db;              // our MongoDb database
 
-var detalhesLegadodm  = require('./modulos/detalheslegadodm.js')(mongoose);
+//var detalhesLegadodm  = require('./modulos/detalheslegadodm.js')(mongoose);
 
 var ObjectID 		= mongoose.Types.ObjectId;
 
@@ -66,7 +66,7 @@ app.use(express.static('../web'));
 app.use(express.static('../lib'));
 
 // routes
-require('./modulos/routerlegadomd.js')(app, mongoose, detalhesLegadodm);      // load our routes and pass in our app and fully configured passport
+require('./modulos/routerlegadomd.js')(app);      // load our routes and pass in our app and fully configured passport
 
 
 //
