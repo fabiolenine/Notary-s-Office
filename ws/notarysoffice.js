@@ -29,13 +29,13 @@ const app				= express();
 
 http.createServer(app).listen(8080);
 
-//const config    =       {
-//                        "USER"     : "",
-//                        "PASS"     : "",
-//                        "HOST"     : "127.0.0.1",
-//                        "PORT"     : "27017",
-//                        "DATABASE" : "md"
-//                        };
+const config    =       {
+                        "USER"     : "",
+                        "PASS"     : "",
+                        "HOST"     : "127.0.0.1",
+                        "PORT"     : "27017",
+                        "DATABASE" : "md"
+                        };
 
 const dbPath  = 'mongodb://localhost/md';
 
