@@ -21,7 +21,7 @@ const bodyParser		= require('body-parser');
 const http    			= require('http')
 const io      			= require('socket.io')(http);
 //const socket  			= require('./modulos/socket.js');
-const socketsequence	= require('./modulos/socketsequence.js');
+const socketsequence	= require('./modulos/socketSequence.js');
 const vhost   			= require('vhost');
 const mongoose			= require('mongoose');
 
