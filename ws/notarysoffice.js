@@ -29,20 +29,21 @@ const app				= express();
 
 http.createServer(app).listen(8080);
 
-const config    =       {
-                        "USER"     : "",
-                        "PASS"     : "",
-                        "HOST"     : "127.0.0.1",
-                        "PORT"     : "27017",
-                        "DATABASE" : "md"
-                        };
+//const config    =       {
+//                        "USER"     : "",
+//                        "PASS"     : "",
+//                        "HOST"     : "127.0.0.1",
+//                        "PORT"     : "27017",
+//                        "DATABASE" : "md"
+//                        };
 
+const dbPath  = 'mongodb://localhost/md';
 
-const dbPath    = "mongodb://" +    config.USER     + ":" +
-                                    config.PASS     + "@"+
-                                    config.HOST     + ":"+
-                                    config.PORT     + "/"+
-                                    config.DATABASE;
+//const dbPath    = "mongodb://" +    config.USER     + ":" +
+//                                    config.PASS     + "@"+
+//                                    config.HOST     + ":"+
+//                                    config.PORT     + "/"+
+//                                    config.DATABASE;
 
 console.log('\ntentando se conectar a instância mongoDB localhost ' + config.HOST);
 
