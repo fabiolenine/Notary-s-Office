@@ -1,0 +1,1 @@
+var mdApp = angular.module("noApp",["sequenceCTRLMain", "sequenceCTRLConfig", "sequenceCTRLService", "sequenceCTRLLista", "ngRoute", "sequenceRouter"]);

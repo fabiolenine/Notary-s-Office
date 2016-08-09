@@ -1,0 +1,5 @@
+
+tentando se conectar a instância MongoDB no servidor local
+conexão com o MongoDB em mongodb://:@127.0.0.1:27017/md
+Iniciando o Web server Notarys Office
+Webserver está escutando na port 8080.

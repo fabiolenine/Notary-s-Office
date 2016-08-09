@@ -1,0 +1,153 @@
+<div class="right_col" role="main">
+	<div class="">
+		<div class="page-title">
+			<div class="title_left">
+            	<h3>Sequence - Configuração</h3>
+			</div>
+			<div class="title_right">
+				<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+					<div class="input-group">
+                    	<input type						= "text" 
+							   class					= "form-control" 
+							   data-ng-model-options	= "{debounce: 500}"
+							   data-ng-model			= "search" 
+							   placeholder				= "Pesquisar por...">
+                    	<span class="input-group-btn">
+                      		<button class="btn btn-default" type="button">Buscar</button>
+                    	</span>
+                  	</div>
+                </div>
+			</div>
+		</div>
+		
+		<div class="clearfix"></div>
+
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Cadastro de Serviços <small>os serviços cadastrados serão disponibilizados conforme confirgurações</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i	class			= "fa fa-plus" 
+													  	data-toggle		= "modal"
+														data-target		= "#servicoModal"
+													  	data-ng-click	= "novo()"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="">Parametrização</a>
+                          </li>
+                          <li><a href="">Ajuda</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="x_content">
+					<!--
+					<p>add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+                    -->
+					<div class="table-responsive">
+                      <table class="table table-striped jambo_table">
+                        <thead>
+                          <tr class="headings">
+                            <th class="column-title">Título </th>
+                            <th class="column-title">Sigla </th>
+                            <th class="column-title">Data de Cadastro </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr class="even pointer" ng-repeat="registro in dadosretorno | filter:search track by $index">
+                            <td class			= " " 
+								data-toggle		= "modal"
+								data-target		= "#servicoModal"
+								data-ng-click	= "existente(registro)">{{registro.titulo}} </td>
+                            <td class			= " " 
+								data-toggle		= "modal"
+								data-target		= "#servicoModal"
+								data-ng-click	= "existente(registro)">{{registro.sigla}} </td>
+                            <td class			= " " 
+								data-toggle		= "modal"
+								data-target		= "#servicoModal"
+								data-ng-click	= "existente(registro)">{{registro.timestamp | date:'dd/MM/yyyy HH:mm'}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                	</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Modal Serviço -->
+		<div class="modal fade" id="servicoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Serviços</h4>
+			  </div>
+			  <div class="modal-body">
+				  
+                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+						  <div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="titulo">Título <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+							  <input type			= "text" 
+									 id				= "titulo" 
+									 required		= "required" 
+									 class			= "form-control col-md-7 col-xs-12"
+									 placeholder	= "Título do serviço, ex: Procuração"
+									 autofocus
+									 data-ng-model	= "dados.titulo">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="sigla">Sigla <span class="required">*</span>
+							</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+							  <input type			= "text" 
+									 id				= "sigla" 
+									 name			= "sigla" 
+									 required		= "required" 
+									 class			= "form-control col-md-7 col-xs-12"
+									 placeholder	= "Sigla com 3 digitos máximo, ex: AAA"
+									 maxlength		= "3"
+									 data-ng-model	= "dados.sigla">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="sigla">Data de Cadastro</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+							  <input type			= "date" 
+									 id				= "dtcadastro" 
+									 name			= "dtcadastro" 
+									 class			= "form-control col-md-7 col-xs-12"
+									 readonly
+									 data-ng-model	= "dados.timestamp">
+							</div>
+						  </div>
+					 </form>
+
+			  </div>
+			  <div class="modal-footer">
+					  <button type			= "button" 
+							  class			= "btn btn-danger" 
+							  ng-show 		= "showbtdel"
+							  data-ng-click = "excluir()">Excluir</button>
+					  <button type			= "button" 
+							  class			= "btn btn-primary" 
+							  data-ng-click	= "salvar()">Salvar</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<!-- /.modal -->
+		
+	</div>
+</div>

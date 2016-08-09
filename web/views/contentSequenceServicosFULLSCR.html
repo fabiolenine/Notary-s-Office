@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="noApp">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Notarys Office</title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- jVectorMap -->
+    <link href="../css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md" ng-controller="sequenceControllerService">
+	  <div class="right_col" role="main">
+		<div class="">    
+			  <div class="page-title">
+              <div class="title_left">
+                <h3>Sequence - Opções</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input	type					= "text" 
+							class					= "form-control" 
+							data-ng-model-options	= "{debounce: 500}"
+							data-ng-model			= "search" 
+							placeholder				= "Pesquisar por...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Buscar</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Escolha uma dos serviços:</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Parametros</a>
+                          </li>
+                          <li><a href="#">Ajuda</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div ng-repeat="registro in dadosretorno | filter:search track by $index">
+					  		<button class			= "btn btn-danger btn-lg btn-block"
+									data-toggle		= "modal"
+									data-target		= "#opcaoModal"
+									data-ng-click	= "faseOne(registro)">{{registro.titulo}}</button>
+					  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+	
+		<!-- Modal Serviço -->
+		<div class="modal fade" id="opcaoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Atendimento</h4>
+			  </div>
+			  <div class="modal-body">
+              	<button class			= "btn btn-danger btn-lg btn-block"
+						data-ng-click	= "faseTwo('Normal')"
+						data-dismiss	= "modal">Normal</button>
+				<button class			= "btn btn-danger btn-lg btn-block"
+						data-ng-click	= "faseTwo('Preferencial')"
+						data-dismiss	= "modal">Preferencial</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<!-- /.modal -->		
+		</div>
+	  </div>
+	  
+	  <!-- jQuery -->
+	  <script src="../vendors/jquery/dist/jquery.min.js"></script>
+	  <!-- Angularjs !.5.8 -->  
+	  <script src="../js/angularjs/angular.min.js"></script>
+	  <script src="../js/angularjs/angular-route.min.js"></script>
+	  <!-- Bootstrap -->
+	  <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	  <!-- FastClick -->
+	  <script src="../vendors/fastclick/lib/fastclick.js"></script>
+	  <!-- NProgress -->
+	  <script src="../vendors/nprogress/nprogress.js"></script>
+	  <!-- Custom Theme Scripts -->
+	  <script src="../build/js/custom.min.js"></script>
+	  <!-- Controllers do Notarys Office -->
+	  <script src="../modulos/sequenceRouters.js"></script>
+	  <script src="../modulos/sequenceControllerConfig.js"></script>
+	  <script src="../modulos/sequenceControllerService.js"></script>
+	  <script src="../modulos/sequenceControllerMain.js"></script>
+	  <script src="../modulos/sequenceCore.js"></script>
+	  
+  </body>
+</html>
