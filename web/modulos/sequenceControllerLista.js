@@ -74,7 +74,7 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 		$scope.dadosretorno.push(dados);
 	});
 	socket.on('chamada', function (dados) {
-		if( dados.guiche !== $scope.envio.guiche) {
+		if( dados.guiche !== $scope.guiche) {
 			$scope.dadosretorno = $scope.dadosretorno.filter(function( obj ) {
 				return obj._id !== dados._id;
 			});
@@ -90,7 +90,7 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 	$scope.chamar = function(dados) {
 		$scope.buttonEnabledChamar = false;
 		$scope.envio = {id		: dados._id,
-					 	guiche	: $scope.envio.guiche}; 
+					 	guiche	: $scope.guiche}; 
 		restAtualizarChamar(vUrle, $scope.envio);
 		$timeout(function() {
    			$scope.buttonEnabledChamar = true;
@@ -99,7 +99,7 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 	
 	$scope.atender = function(dados) {
 		$scope.envio = {id		: dados._id,
-					 	guiche	: $scope.envio.guiche};
+					 	guiche	: $scope.guiche};
 		$scope.dadosretorno = $scope.dadosretorno.filter(function( obj ) {
 				return obj._id !== dados._id;
 		}); 
