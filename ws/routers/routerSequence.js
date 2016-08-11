@@ -1,5 +1,5 @@
 // Rota dos sites Cartório Moreira de Deus
-module.exports = function(app,dbservicos,dbescolhas)
+module.exports = function(app,dbservicos,dbescolhas,dbchamadas)
 {	
 	app.route('/api/sequence/v001/servicos')
 	.post(function(req, res){
@@ -35,6 +35,13 @@ module.exports = function(app,dbservicos,dbescolhas)
 		});
 	}).put(function(req, res){
 		dbescolhas.atualizar(req.body.id, req.body.guiche, function(retorno) {
+			res.send(retorno);
+		});
+	});
+	
+	app.route('/api/sequence/v001/chamadas')
+	.put(function(req, res){
+		dbchamadas.atualizar(req.body.id, req.body.guiche, function(retorno) {
 			res.send(retorno);
 		});
 	});

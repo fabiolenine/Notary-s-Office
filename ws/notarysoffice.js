@@ -70,6 +70,7 @@ io.on('connection', function (socket) {
 //Definições dos detalhes que serão repassados as rotas para serem utilizados
 const dbservicos	= require('./modulos/dbServicos.js')(mongoose);
 const dbescolhas	= require('./modulos/dbEscolhas.js')(mongoose,io);
+const dbchamadas	= require('./modulos/dbChamadas.js')(mongoose,io);
 
 //---------------------------------------------------------------------------------------
 
@@ -81,7 +82,7 @@ app.use(bodyParser.urlencoded({extended: true}));	// for parsing application/x-w
 app.use(express.static('../web'));
 
 // roteamento
-require('./routers/routerSequence.js')(app,dbservicos,dbescolhas);
+require('./routers/routerSequence.js')(app,dbservicos,dbescolhas,dbchamadas);
 
 // ------------------------------------------------------------------------
 // Start Express Webserver

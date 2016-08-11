@@ -7,7 +7,7 @@ var sequenceEscolhaSchema = new mongoose.Schema({	atendimento	: { type		: String
 												 	chamadas	: [{guiche		: {type: String},
 																	timestamp	: {type: Date, default: Date.now}}],
 												 	atendido	: { guiche		: {type: String},
-																	timestamp	: {type: Date, default: Date.now}}
+																	timestamp	: {type: Date}}
                                        });
 
 exports.model = mongoose.model('sequenceescolha',sequenceEscolhaSchema);

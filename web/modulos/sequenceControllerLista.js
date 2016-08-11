@@ -1,7 +1,8 @@
 angular.module("sequenceCTRLLista",['angular.filter'])
 .controller('sequenceControllerLista', function($scope,$http,$window,$interval,$timeout) {
 	
-	var vUrl = '/api/sequence/v001/escolhas';
+	var vUrle = '/api/sequence/v001/escolhas';
+	var vUrlc = '/api/sequence/v001/chamadas';
 	
 	var restListar = function(Url, dados) {
     	$http({	url: Url,
@@ -14,7 +15,22 @@ angular.module("sequenceCTRLLista",['angular.filter'])
     			});
 	};
 	
-	var restAtualizar = function(Url, dados) {
+	var restAtualizarChamar = function(Url, dados) {
+		$http({	url: Url,
+        		method: "PUT",
+			   	data: dados,
+			    headers: {'Content-Type': 'application/json;charset=utf-8'}
+    			}).then(function mySucces(retorno) {
+							console.log(retorno);
+							$scope.dadosretorno.forEach(registrar);
+							console.log($scope.dadosretorno);
+			
+    			}, function myError(retorno) {
+        				console.log(retorno);
+    			});	
+	};
+	
+	var restAtualizarAtender = function(Url, dados) {
 		$http({	url: Url,
         		method: "PUT",
 			   	data: dados,
@@ -30,7 +46,7 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 	};
 	
 	var init = function() { 
-		restListar(vUrl, {});
+		restListar(vUrle, {});
 		$scope.buttonEnabledChamar = true;
 		clock();
     };
@@ -75,14 +91,25 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 		$scope.buttonEnabledChamar = false;
 		$scope.envio = {id		: dados._id,
 					 	guiche	: $scope.envio.guiche}; 
-		restAtualizar(vUrl, $scope.envio);
+		restAtualizarChamar(vUrle, $scope.envio);
 		$timeout(function() {
    			$scope.buttonEnabledChamar = true;
 		}, 1000 * 3);
 	};
 	
 	$scope.atender = function(dados) {
-		console.log(dados);
+		$scope.envio = {id		: dados._id,
+					 	guiche	: $scope.envio.guiche};
+		$scope.dadosretorno = $scope.dadosretorno.filter(function( obj ) {
+				return obj._id !== dados._id;
+		}); 
+		restAtualizarAtender(vUrlc, $scope.envio);
+	};
+	
+	$scope.faltou = function(dados) {
+		$scope.dadosretorno = $scope.dadosretorno.filter(function( obj ) {
+				return obj._id !== dados._id;
+		});
 	};
 	
 	init();
