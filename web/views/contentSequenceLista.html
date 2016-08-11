@@ -4,13 +4,23 @@
 			<div class="title_left">
             	<h3>Sequence - Lista</h3>
 			</div>
-			
-				<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder=" Guichê / Box">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                </div>
-			
 			<div class="title_right">
+				<div class="col-md-5 col-sm-5 col-xs-12">
+					<form id	= "form"
+						  name	= "formContato">
+                      <label for="guiche">Guichê: </label>
+                      <input type					= "text" 
+							 placeholder			= "Guichê, ex: 07"
+							 id						= "guiche" 
+							 class					= "form-control"
+							 name					= "guiche"
+							 maxlength				= "5"
+							 style					= "text-transform:uppercase"
+							 data-ng-model-options	= "{debounce: 500}"
+							 data-ng-model			= "envio.guiche"
+							 required />
+					</form>
+                </div>
 				<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 					<div class="input-group">
                     	<input type						= "text" 
@@ -59,7 +69,9 @@
 								<th class="column-title">Atendimento </th>
 								<th class="column-title">Emitida as </th>
 								<th class="column-title">Tempo de Espera</th>
-								<th class="column-title">Ação </th>
+								<th class="column-title"></th>
+								<th class="column-title"></th>
+								<th class="column-title"></th>
                           	</tr>
                         </thead>
 
@@ -70,8 +82,30 @@
 							  <td class = " ">{{registro.timestamp | date:'HH:mm:ss'}} </td>
 							  <td class = " ">{{registro.tictac}} </td>
 							  <td class	= " ">
-								  <button class="btn btn-primary btn-round btn-xs" type="button">
-									  <i class="fa fa-bullhorn"></i> Chamar <span class="badge">1</span>
+								  <button class				= "btn btn-primary btn-round btn-xs" 
+										  type				= "button"
+										  data-ng-show		= "!formContato.guiche.$error.required"
+										  data-ng-disabled	= "!buttonEnabledChamar || registro.chamadas.length > 2"
+										  data-ng-click		= "chamar(registro)">
+									  <i class="fa fa-bullhorn"></i> Chamar <span class="badge"> {{registro.chamadas.length}}</span>
+								  </button>
+							  </td>
+							  <td class	= " ">
+								  <button class				= "btn btn-info btn-round btn-xs" 
+										  type				= "button"
+										  data-ng-show		= "!formContato.guiche.$error.required"
+										  data-ng-disabled	= "!buttonEnabledChamar"
+										  data-ng-click		= "atender(registro)">
+									  <i class="fa fa-file-text"></i> Atender
+								  </button>
+							  </td>
+							  <td class	= " ">
+								  <button class				= "btn btn-danger btn-round btn-xs" 
+										  type				= "button"
+										  data-ng-show		= "registro.chamadas.length > 2"
+										  data-ng-disabled	= "!buttonEnabledChamar"
+										  data-ng-click		= "faltou(registro)">
+									  <i class="fa fa-file-text"></i> Faltou
 								  </button>
 							  </td>
                           </tr>

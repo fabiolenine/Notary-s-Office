@@ -33,9 +33,12 @@ module.exports = function(app,dbservicos,dbescolhas)
 		dbescolhas.listar(function(retorno) {
 			res.send(retorno);
 		});
+	}).put(function(req, res){
+		dbescolhas.atualizar(req.body.id, req.body.guiche, function(retorno) {
+			res.send(retorno);
+		});
 	});
 	
-
 	const pathDir = '/Users/fabiolenine/Documents/Projetos/notarysoffice/web/views/';
 	
 	// Tratamentos dos erros 404 e 500

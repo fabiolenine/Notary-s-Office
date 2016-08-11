@@ -1,4 +1,4 @@
-module.exports = function(mongoose)
+module.exports = function(mongoose,socket)
     {
     var sequenceescolhasModel  = require('./modelSequenceEscolhas.js');
        
@@ -32,8 +32,9 @@ module.exports = function(mongoose)
 										console.error('Erro: ' + err);
 										callback(err);
                      				}
-									else {
-										var resultadofinal = resultupdate.sequence = seq;
+									else {	
+										resultupdate.sequence = seq;
+										socket.emit('escolha', resultupdate);
 										callback(resultupdate);
 									};
 								});
@@ -53,7 +54,7 @@ module.exports = function(mongoose)
 		
 		var vdate	= vTSy + '-' + (pad.substring(0, pad.length - vTSm.length) + vTSm) + '-' + (pad.substring(0, pad.length - vTSd.length) + vTSd)+ "T00:00:00";
 		
-		sequenceescolhasModel.model.find({sequence: {$ne: ""}, timestamp: {$gte: new Date( vdate).toISOString()}},function(err, result) {
+		sequenceescolhasModel.model.find({sequence: {$ne: ""}, timestamp: {$gte: new Date( vdate).toISOString()}, "chamadas.guiche": {$exists: false}},function(err, result) {
             if (err) {
                 console.error('Erro: ' + err);
                 callback('Houve algum problema, informação não encontrada.');
@@ -63,9 +64,23 @@ module.exports = function(mongoose)
 			};
         });   			
     };
+	
+	var atualizar = function(vId, vGuiche, callback) {
+		sequenceescolhasModel.model.update({_id: vId},{$push: {chamadas: {guiche: vGuiche}}},{upsert: true}, function(err, result) {
+			if (err) {
+				console.error('Erro: ' + err);
+				callback(err);
+			}
+			else {	
+				socket.emit('chamada', {_id: vId, guiche: vGuiche});
+				callback(result);
+			};
+		});	
+	};
 
 	var retorno = {	"salvar"    : salvar,
-				  	"listar"	: listar};
+				  	"listar"	: listar,
+				  	"atualizar"	: atualizar};
    
 	return retorno;     
     }

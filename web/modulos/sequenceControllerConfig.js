@@ -39,8 +39,6 @@ angular.module("sequenceCTRLConfig",[])
     			}).then(function mySucces(retorno) {
 							$scope.novo();
 							$scope.dadosretorno = $scope.dadosretorno.filter(function( obj ) {
-    							console.log(obj);
-								console.log(dados.id);
 								return obj._id !== dados.id;
 							});
     			}, function myError(retorno) {

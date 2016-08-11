@@ -16,18 +16,15 @@
  */
 'use strict';
 
-const express 			= require('express');
+const express			= require('express');
+const app				= express();
 const bodyParser		= require('body-parser');
-const http    			= require('http')
+const http    			= require('http').createServer(app);
 const io      			= require('socket.io')(http);
-//const socket  			= require('./modulos/socket.js');
-const socketsequence	= require('./modulos/socketSequence.js');
 const vhost   			= require('vhost');
 const mongoose			= require('mongoose');
 
-const app				= express();
-
-http.createServer(app).listen(8080);
+http.listen(8080); // http.listen(8080,'192.168.0.6'); // Estabelece o IP do servidor para os clientes acessarem.
 
 const config    =       {
                         "USER"     : "",
@@ -37,7 +34,7 @@ const config    =       {
                         "DATABASE" : "md"
                         };
 
-const dbPath  = 'mongodb://localhost/md';
+const dbPath  = 'mongodb://localhost/md'; // Usado no servidor no CMD.
 
 //const dbPath    = "mongodb://" +    config.USER     + ":" +
 //                                    config.PASS     + "@"+
@@ -65,9 +62,14 @@ mongoose.connection.once('open', function()
         console.log('database '+config.DATABASE+' está agora aberto em '+config.HOST );
         });
 
+
+io.on('connection', function (socket) {
+		socket.on('disconnect', function(){ });
+});
+	
 //Definições dos detalhes que serão repassados as rotas para serem utilizados
 const dbservicos	= require('./modulos/dbServicos.js')(mongoose);
-const dbescolhas	= require('./modulos/dbEscolhas.js')(mongoose);
+const dbescolhas	= require('./modulos/dbEscolhas.js')(mongoose,io);
 
 //---------------------------------------------------------------------------------------
 
@@ -80,9 +82,6 @@ app.use(express.static('../web'));
 
 // roteamento
 require('./routers/routerSequence.js')(app,dbservicos,dbescolhas);
-
-// Conexão com socket.io
-io.on('connection', socketsequence);
 
 // ------------------------------------------------------------------------
 // Start Express Webserver
