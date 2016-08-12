@@ -15,16 +15,24 @@ angular.module("sequenceCTRLLista",['angular.filter'])
     			});
 	};
 	
+	var restListarNaoAtendido = function(Url, dados) {
+    	$http({	url: Url,
+        		method: "GET",
+        		params: dados
+    			}).then(function mySucces(retorno) {
+						$scope.naoatendidos = retorno.data;
+    			}, function myError(retorno) {
+        				console.log(retorno);
+    			});
+	};
+	
 	var restAtualizarChamar = function(Url, dados) {
 		$http({	url: Url,
         		method: "PUT",
 			   	data: dados,
 			    headers: {'Content-Type': 'application/json;charset=utf-8'}
     			}).then(function mySucces(retorno) {
-							console.log(retorno);
 							$scope.dadosretorno.forEach(registrar);
-							console.log($scope.dadosretorno);
-			
     			}, function myError(retorno) {
         				console.log(retorno);
     			});	
@@ -36,9 +44,7 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 			   	data: dados,
 			    headers: {'Content-Type': 'application/json;charset=utf-8'}
     			}).then(function mySucces(retorno) {
-							console.log(retorno);
 							$scope.dadosretorno.forEach(registrar);
-							console.log($scope.dadosretorno);
 			
     			}, function myError(retorno) {
         				console.log(retorno);
@@ -110,6 +116,19 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 		$scope.dadosretorno = $scope.dadosretorno.filter(function( obj ) {
 				return obj._id !== dados._id;
 		});
+	};
+	
+	$scope.naoatendido = function(){
+		restListarNaoAtendido(vUrlc, {});
+	};
+	
+	$scope.atenderna = function(dados) {
+		$scope.envio = {id		: dados._id,
+					 	guiche	: $scope.guiche};
+		$scope.naoatendidos = $scope.naoatendidos.filter(function( obj ) {
+				return obj._id !== dados._id;
+		}); 
+		restAtualizarAtender(vUrlc, $scope.envio);
 	};
 	
 	init();

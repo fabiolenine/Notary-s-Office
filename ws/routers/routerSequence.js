@@ -40,7 +40,11 @@ module.exports = function(app,dbservicos,dbescolhas,dbchamadas)
 	});
 	
 	app.route('/api/sequence/v001/chamadas')
-	.put(function(req, res){
+	.get(function(req, res) {
+		dbchamadas.listar(function(retorno) {
+			res.send(retorno);
+		});
+	}).put(function(req, res){
 		dbchamadas.atualizar(req.body.id, req.body.guiche, function(retorno) {
 			res.send(retorno);
 		});
