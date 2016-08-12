@@ -27,8 +27,8 @@ const mongoose			= require('mongoose');
 http.listen(8080); // http.listen(8080,'192.168.0.6'); // Estabelece o IP do servidor para os clientes acessarem.
 
 const config    =       {
-                        "USER"     : "noBot",
-                        "PASS"     : "Helioenai.1976",
+                        "USER"     : "",
+                        "PASS"     : "",
                         "HOST"     : "127.0.0.1",
                         "PORT"     : "27017",
                         "DATABASE" : "md"
