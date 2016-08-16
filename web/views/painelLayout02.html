@@ -16,7 +16,16 @@
 	</head>
 	<style>
 		.chamada-atual-sequence {
-			font-size: calc(40px + 3vw);;
+			font-size: calc(60px + 3vw);
+		}
+		.chamada-atual-atendimento {
+			font-size: calc(40px + 3vw);
+		}
+		.chamada-atual-guiche {
+			font-size: calc(60px + 3vw);
+		}
+		.chamada-lista {
+			font-size: 30px;
 		}
 	
 	</style>
@@ -24,11 +33,11 @@
 		<div class="container">
 			<div class="col-md-8">
 				<h1><p class="text-center chamada-atual-sequence">{{last.sequence}}</p></h1>
-				<h3><p class="text-center">{{last.atendimento}}</p></h3>
-				<h2><p class="text-center">{{last.guiche}}</p></h2>
+				<h3><p class="text-center chamada-atual-atendimento">{{last.atendimento}}</p></h3>
+				<h2><p class="text-center chamada-atual-guiche">{{last.guiche}}</p></h2>
 			</div>
 			<div class="col-md-4 table-responsive">
-				<table class="table table-striped jambo_table" >
+				<table class="table table-striped jambo_table chamada-lista" >
 					<thead>
 						<tr class="headings">
 							<th class="">Senha</th>
