@@ -75,10 +75,12 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 		return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
 	};
 	
-	var socket = io.connect('http://192.168.0.6:8080'); //O IP ou Endereço do servidor;
+	var socket = io.connect('http://10.1.1.4:8080'); //O IP ou Endereço do servidor;
+	
 	socket.on('escolha', function (dados) {
 		$scope.dadosretorno.push(dados);
 	});
+	
 	socket.on('chamada', function (dados) {
 		if( dados.guiche !== $scope.guiche) {
 			$scope.dadosretorno = $scope.dadosretorno.filter(function( obj ) {
@@ -95,8 +97,11 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 	
 	$scope.chamar = function(dados) {
 		$scope.buttonEnabledChamar = false;
-		$scope.envio = {id		: dados._id,
-					 	guiche	: $scope.guiche}; 
+		$scope.envio = {id			: dados._id,
+					 	guiche		: $scope.guiche,
+					    sequence	: dados.sequence,
+					    atendimento	: dados.atendimento
+					   }; 
 		restAtualizarChamar(vUrle, $scope.envio);
 		$timeout(function() {
    			$scope.buttonEnabledChamar = true;

@@ -34,7 +34,7 @@ module.exports = function(app,dbservicos,dbescolhas,dbchamadas)
 			res.send(retorno);
 		});
 	}).put(function(req, res){
-		dbescolhas.atualizar(req.body.id, req.body.guiche, function(retorno) {
+		dbescolhas.atualizar(req.body.id, req.body.guiche, req.body.sequence, req.body.atendimento, function(retorno) {
 			res.send(retorno);
 		});
 	});

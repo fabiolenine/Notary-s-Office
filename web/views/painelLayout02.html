@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="noApp">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<!-- Meta, title, CSS, favicons, etc. -->
+    	<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    	<title>Notarys Office</title>
+
+    	<!-- Bootstrap -->
+    	<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    	<!-- Font Awesome -->
+    	<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	</head>
+	<body class="nav-md" ng-controller="sequenceControllerPainel">
+		<div class="container">
+			<div class="col-md-8">
+				<h1>{{last.sequence}}</h1>
+				<h2>{{last.guiche}}</h2>
+				<h3>{{last.atendimento}}</h3>
+			</div>
+			<div class="col-md-4 table-responsive">
+				<table class="table table-striped jambo_table" >
+					<thead>
+						<tr class="headings">
+							<th class="">Senha</th>
+							<th class="">Box</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="even pointer" ng-repeat="registro in sequencechamadas | orderBy: '-timestamp' track by $index">
+							<td class="">{{registro.sequence}}</td>
+							<td class="">{{registro.guiche}}</td>
+						</tr>
+					</tbody>
+				</table>	
+			</div>
+	  	</div>
+	<!-- jQuery -->
+	<script src="../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Angularjs !.5.8 -->  
+	<script src="../js/angularjs/angular.min.js"></script>
+	<script src="../js/angularjs/angular-route.min.js"></script>
+	<script src="../js/angular-filter/angular-filter.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Controllers do Notarys Office -->
+ 	<script src="../modulos/sequenceRouters.js"></script>
+	<script src="../modulos/sequenceControllerConfig.js"></script>
+	<script src="../modulos/sequenceControllerService.js"></script>
+	<script src="../modulos/sequenceControllerLista.js"></script>
+	<script src="../modulos/sequenceControllerPainel.js"></script>
+	<script src="../modulos/sequenceControllerMain.js"></script>
+	<script src="../modulos/sequenceCore.js"></script>
+	<!-- Socket.io -->
+	<script src="../js/socket.io/socket.io.js"></script>
+	  
+  </body>
+</html>

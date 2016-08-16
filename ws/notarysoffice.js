@@ -34,13 +34,13 @@ const config    =       {
                         "DATABASE" : "md"
                         };
 
-//const dbPath  = 'mongodb://localhost/md'; // Usado no servidor no CMD.
+const dbPath  = 'mongodb://localhost/md'; // Usado no servidor no CMD.
 
-const dbPath    = "mongodb://" +    config.USER     + ":" +
-                                    config.PASS     + "@"+
-                                    config.HOST     + ":"+
-                                    config.PORT     + "/"+
-                                    config.DATABASE;
+//const dbPath    = "mongodb://" +    config.USER     + ":" +
+//                                    config.PASS     + "@"+
+//                                    config.HOST     + ":"+
+//                                    config.PORT     + "/"+
+//                                    config.DATABASE;
 
 console.log('\ntentando se conectar a instância mongoDB localhost ' + config.HOST);
 
