@@ -38,11 +38,14 @@ angular.module("sequenceCTRLPainel",['angular.filter'])
 		console.log(dados);
 		
 		$scope.$apply(function () {
-			$scope.sequencechamadas.push(dados);
 			$scope.last = { sequence	: dados.sequence,
 						   guiche		: dados.guiche,
 						   atendimento	: dados.atendimento
-			};
+						   };
+			$scope.sequencechamadas = $scope.sequencechamadas.filter(function( obj ) {
+				return obj._id !== dados._id;
+			});
+			$scope.sequencechamadas.push(dados);
 		});
 		notificationsound();
 		console.log($scope.sequencechamadas);
