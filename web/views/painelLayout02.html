@@ -14,10 +14,16 @@
     	<!-- Font Awesome -->
     	<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	</head>
+	<style>
+		.chamada-atual-sequence {
+			font-size: 2em;
+		}
+	
+	</style>
 	<body class="nav-md" ng-controller="sequenceControllerPainel">
 		<div class="container">
 			<div class="col-md-8">
-				<h1><p class="text-center">{{last.sequence}}</p></h1>
+				<h1><p class="text-center chamada-atual-sequence">{{last.sequence}}</p></h1>
 				<h3><p class="text-center">{{last.atendimento}}</p></h3>
 				<h2><p class="text-center">{{last.guiche}}</p></h2>
 			</div>
