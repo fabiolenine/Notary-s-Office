@@ -1,5 +1,8 @@
 angular.module("sequenceCTRLPainel",['angular.filter'])
 .controller('sequenceControllerPainel', function($scope,$http,$window,$interval,$timeout) {
+	var synth = window.speechSynthesis;
+
+	var voices = [];
 	var vUrl = '/api/sequence/v001/chamadas';
 	
 	var restListar = function(Url, dados) {
@@ -59,10 +62,15 @@ angular.module("sequenceCTRLPainel",['angular.filter'])
 	
 	var voice = function(vSequence, vAtendimento, vGuiche) {
 		var texto = 'Atenção, senha ' + vSequence + ', ' + vAtendimento + ', atendimento no balcão ' + vGuiche;
-		
-		var synth = window.speechSynthesis;
+
+		var voices = synth.getVoices();
 		
 		var utterThis = new SpeechSynthesisUtterance(texto);
+		utterThis.volume	= 1; // o default é o valor 1, ou seja o volume máximo.
+		utterThis.pitch 	= 1; // o default é o valor 1.
+		utterThis.rate 		= 1; // o default é o valor 1.
+		utterThis.lang		= 'pt-BR';
+		utterThis.voice		= voices[15];
 		
 		synth.speak(utterThis);
 	};
