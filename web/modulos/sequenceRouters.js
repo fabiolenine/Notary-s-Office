@@ -7,6 +7,10 @@ angular.module("sequenceRouter",[]).config(function ($routeProvider){
 		templateUrl:"./views/contentSequenceDashboard.html",
 		controller:"sequenceControllerMain"
 	})
+	.when("/sequence/layouts",{
+		templateUrl:"./views/contentSequenceLayouts.html",
+		controller:"sequenceControllerLayouts"
+	})
 	.when("/sequence/lista",{
 		templateUrl:"./views/contentSequenceLista.html",
 		controller:"sequenceControllerLista"

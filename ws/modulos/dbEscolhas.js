@@ -35,6 +35,7 @@ module.exports = function(mongoose,socket)
 									else {	
 										resultupdate.sequence = seq;
 										socket.emit('escolha', resultupdate);
+										socket.emit('print',resultupdate);
 										callback(resultupdate);
 									};
 								});

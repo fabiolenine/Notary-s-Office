@@ -5,6 +5,12 @@ angular.module("sequenceCTRLPainel",['angular.filter'])
 	var voices = [];
 	var vUrl = '/api/sequence/v001/chamadas';
 	
+	var limite = function(vsize,vlimite) {
+		if (vsize > vlimite) {
+			$scope.sequencechamadas.splice(vlimite,vsize-vlimite);
+		};
+	};
+	
 	var restListar = function(Url, dados) {
     	$http({	url: Url,
         		method: "GET",
@@ -27,7 +33,9 @@ angular.module("sequenceCTRLPainel",['angular.filter'])
 						timestamp	: element.chamadas[vCount].timestamp
 					};
 		
-		$scope.sequencechamadas.push(vTemp);
+		if ($scope.sequencechamadas.push(vTemp) > 8) { //limita em 8 linhas o array, backlog para transformar em parametro.
+			$scope.sequencechamadas.shift();
+		};
 	};
 	
 	var init = function() {
@@ -38,8 +46,6 @@ angular.module("sequenceCTRLPainel",['angular.filter'])
 	var socket = io.connect('http://10.1.1.4:8080');
 	
 	socket.on('chamada', function (dados) {
-		console.log(dados);
-		
 		$scope.$apply(function () {
 			$scope.last = { sequence	: dados.sequence,
 						   guiche		: dados.guiche,
@@ -48,10 +54,11 @@ angular.module("sequenceCTRLPainel",['angular.filter'])
 			$scope.sequencechamadas = $scope.sequencechamadas.filter(function( obj ) {
 				return obj._id !== dados._id;
 			});
-			$scope.sequencechamadas.push(dados);
+			if ($scope.sequencechamadas.push(dados) > 8) { //limita em 8 linhas o array, backlog para transformar em parametro.
+				$scope.sequencechamadas.shift();
+			};
 		});
-		notificationsound();
-		console.log($scope.sequencechamadas);
+		notificationsound();			
 	});
 	
 	var notificationsound = function() {
