@@ -18,11 +18,16 @@
 
 const express			= require('express');
 const app				= express();
-const bodyParser		= require('body-parser');
 const http    			= require('http').createServer(app);
 const io      			= require('socket.io')(http);
 const vhost   			= require('vhost');
 const mongoose			= require('mongoose');
+const passport			= require('passport');
+const flash				= require('connect-flash');
+const morgan			= require('morgan');
+const cookieParser		= require('cookie-parser');
+const bodyParser		= require('body-parser');
+const session			= require('express-session');
 
 http.listen(8080); // http.listen(8080,'192.168.0.6'); // Estabelece o IP do servidor para os clientes acessarem.
 
@@ -73,16 +78,23 @@ const dbescolhas	= require('./modulos/dbEscolhas.js')(mongoose,io);
 const dbchamadas	= require('./modulos/dbChamadas.js')(mongoose,io);
 
 //---------------------------------------------------------------------------------------
-
-app.use(bodyParser.json());							//for parsing application/json
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(bodyParser.json());							// for parsing application/json
 app.use(bodyParser.urlencoded({extended: true}));	// for parsing application/x-www-form-urlencoded
 
 // set up ejs for templating
-//app.set('view engine','ejs');
-app.use(express.static('../web'));
+app.set('view engine','ejs');
+//app.use(express.static('../web'));
+
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 // roteamento
-require('./routers/routerSequence.js')(app,dbservicos,dbescolhas,dbchamadas);
+require('./routers/routerSequence.js')(app, passport, dbservicos, dbescolhas, dbchamadas);
 
 // ------------------------------------------------------------------------
 // Start Express Webserver
