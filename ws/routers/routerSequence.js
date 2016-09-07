@@ -2,7 +2,7 @@
 module.exports = function(app, passport, dbservicos, dbescolhas, dbchamadas)
 {	
 	app.get('/',function(req, res) {
-		res.render('../web/login.ejs', {message: req.flash('loginMessage')});
+		res.render('login.ejs', {message: req.flash('loginMessage')});
 	});
 	
 	app.route('/api/sequence/v001/servicos')

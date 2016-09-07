@@ -85,7 +85,7 @@ app.use(bodyParser.urlencoded({extended: true}));	// for parsing application/x-w
 
 // set up ejs for templating
 app.set('view engine','ejs');
-//app.use(express.static('../web'));
+app.use(express.static('../web'));
 
 // required for passport
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
