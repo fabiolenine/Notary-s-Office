@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" ng-app="noAuth">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -20,7 +20,7 @@
     <link href="./build/css/custom.min.css" rel="stylesheet">
   </head>
 
-  <body class="login">
+  <body class="login" ng-controller="sequenceControllerLogin">
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
@@ -31,13 +31,18 @@
             <form>
               <h1>Identifique-se</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Usuário" required="" />
+                <input type			= "text" 
+					   class		= "form-control" 
+					   placeholder	= "Usuário" 
+					   required />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Senha" required="" />
+                <input type			= "password" 
+					   class		= "form-control" 
+					   placeholder	= "Senha" required />
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Acessar</a>
+                <a class="btn btn-default submit" href="main.html">Acessar</a>
                 <a class="reset_pass" href="#">Esqueceu a sua senha?</a>
               </div>
 
@@ -60,5 +65,14 @@
         </div>
       </div>
     </div>
+	  
+	  <!-- jQuery -->
+	  <script src="./vendors/jquery/dist/jquery.min.js"></script>
+	  <!-- Angularjs 1.5.8 -->  
+	  <script src="./js/angularjs/angular.min.js"></script>
+	  <!-- Notary's Office -->
+	  <script src="./modulos/sequenceControllerLogin.js"></script>
+	  <script src="./modulos/sequenceCoreAuth.js"></script>
+	  
   </body>
 </html>

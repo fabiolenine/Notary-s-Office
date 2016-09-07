@@ -1,0 +1,1 @@
+var mdAuth = angular.module("noAuth",["sequenceCTRLLogin"]);
