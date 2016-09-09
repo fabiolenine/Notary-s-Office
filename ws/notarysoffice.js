@@ -94,6 +94,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // roteamento
+require('./config/passport.js')(passport);
 require('./routers/routerSequence.js')(app, passport, dbservicos, dbescolhas, dbchamadas);
 
 // ------------------------------------------------------------------------

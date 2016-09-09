@@ -12,7 +12,13 @@ module.exports = function(app, passport, dbservicos, dbescolhas, dbchamadas)
 		res.render('main.ejs', {usuario: req.user});
 	});
 	
-	app.get('/signup', function(req, res) {
+	app.route('/signup(.html)?')
+	.post(passport.authenticate('local-signup', {
+		successRedirect	: '/profile',
+		failureRedirect	: '/signup',
+		failureFlash	: true
+	}))
+	.get(function(req, res) {
 		res.render('signup.ejs', {message: req.flash('signupMessage')});
 	});
 	
@@ -62,6 +68,14 @@ module.exports = function(app, passport, dbservicos, dbescolhas, dbchamadas)
 	});
 	
 	// API
+
+	app.route('/api/sequence/v001/login')
+	.post(function(req, res){
+		console.log(req.body);
+//		dbservicos.salvar(req.body.titulo, req.body.sigla, function(retorno) {
+//			res.send(retorno);
+//		});		
+	});	
 	
 	app.route('/api/sequence/v001/servicos')
 	.post(function(req, res){
