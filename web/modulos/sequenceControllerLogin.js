@@ -1,7 +1,7 @@
 angular.module("sequenceCTRLLogin",[])
 .controller('sequenceControllerLogin', function($scope,$http,$window,$location) {
 	
-	var vUrl = '/api/sequence/v001/login';
+	var vUrl = '/login';
 	
 	var restSubmeter = function(Url, dados) {
 		$http({	url: Url,
@@ -21,8 +21,8 @@ angular.module("sequenceCTRLLogin",[])
 	};
 	
 	var init = function() {
-		$scope.login = {usuario	: '',
-						senha	: ''};
+		$scope.login = {email		: '',
+						password	: ''};
 	};
 	
 	init();

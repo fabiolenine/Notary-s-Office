@@ -1,19 +1,27 @@
 var mongoose = require('mongoose');
 var bcrypt	 = require('bcrypt-nodejs');
-var sequenceAuthSchema = new mongoose.Schema({	local		: {	email		: String,
-														   		password	: String},
-												facebook	: {	id			: String,
-															   	token		: String,
-															   	email		: String,
-															   	name		: String},
-												 twitter	: {	id			: String,
-															   	token		: String,
-															   	displayName	: String,
-															   	username	: String},
-												 google		: {	id			: String,
-															   	token		: String,
-															   	email		: String,
-															   	name		: String}
+
+var sequenceAuthSchema = new mongoose.Schema({	primeironome	: {	type		: String,
+																  	required	: true	
+																  },
+											  	ultimonome		: String,
+											  	numerocelular	: {	type		: String,
+																	unique		: true,
+																  	required	: true	
+																  },
+											  	contaverificada	: {	type		:Boolean,
+																  	default		: false},
+											  	criadotimestamp	: {	type		: Date,
+																  	default		: Date.now},
+											  	//foto			: { data		: Buffer, 
+																   	contentType	: String },
+												local			: {	email		: {	type		: String,
+																					unique		: true,
+																  					required	: true	
+																  					},
+														   			password	: {	type		: String,
+																  					required	: true	
+																  					}}
                                        });
 
 // methods

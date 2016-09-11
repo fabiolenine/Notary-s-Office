@@ -4,22 +4,32 @@ module.exports = function(app, passport, dbservicos, dbescolhas, dbchamadas)
 	
 	// Web Page
 	
-	app.get('/', function(req, res) {
+	app.route('/login(.html)?')
+	.post(passport.authenticate('local-login',{
+		successRedirect : 'main',
+		failureRedirect	: '/login',
+		failureFlash	: true
+	}))
+	.get(function(req, res) {
 		res.render('login.ejs', {message: req.flash('loginMessage')});
-	});
-	
-	app.get('/main(.html)?', isLoggedIn, function(req, res) {
-		res.render('main.ejs', {usuario: req.user});
 	});
 	
 	app.route('/signup(.html)?')
 	.post(passport.authenticate('local-signup', {
-		successRedirect	: '/profile',
+		successRedirect	: '/',
 		failureRedirect	: '/signup',
 		failureFlash	: true
 	}))
 	.get(function(req, res) {
 		res.render('signup.ejs', {message: req.flash('signupMessage')});
+	});
+
+	app.get('/', isLoggedIn, function(req, res) {
+		res.render('index.ejs', {usuario: req.user});
+	});
+	
+	app.get('/main(.html)?', isLoggedIn, function(req, res) {
+		res.render('index.ejs', {usuario: req.user});
 	});
 	
 	app.get('/perfil(.html)?', isLoggedIn, function(req, res) {
@@ -31,7 +41,7 @@ module.exports = function(app, passport, dbservicos, dbescolhas, dbchamadas)
 	});
 	
 	app.get('/contentSequenceDashboard(.html)?', isLoggedIn, function(req, res) {
-		res.render('contentSequenceDashboard.ejs', {usuario: req.user});
+		res.render('contentSequenceDashboard.ejs');
 	});
 	
 	app.get('/contentSequenceLayouts(.html)?', isLoggedIn, function(req, res) {
@@ -64,18 +74,18 @@ module.exports = function(app, passport, dbservicos, dbescolhas, dbchamadas)
 	
 	app.get('/sair', function(req,res) {
 		req.logout();
-		res.redirect('/');
+		res.redirect('/login');
 	});
 	
 	// API
 
-	app.route('/api/sequence/v001/login')
-	.post(function(req, res){
-		console.log(req.body);
-//		dbservicos.salvar(req.body.titulo, req.body.sigla, function(retorno) {
-//			res.send(retorno);
-//		});		
-	});	
+//	app.route('/api/sequence/v001/login')
+//	.post(function(req, res){
+//		console.log(req.body);
+////		dbservicos.salvar(req.body.titulo, req.body.sigla, function(retorno) {
+////			res.send(retorno);
+////		});		
+//	});	
 	
 	app.route('/api/sequence/v001/servicos')
 	.post(function(req, res){
@@ -130,6 +140,10 @@ module.exports = function(app, passport, dbservicos, dbescolhas, dbchamadas)
 	
 	// Tratamentos dos erros 404 e 500
 	app.use(function(req, res, next) {
+  		res.status(403).render('403.ejs');
+	});
+	
+	app.use(function(req, res, next) {
   		res.status(404).render('404.ejs');
 	});
 
@@ -138,8 +152,12 @@ module.exports = function(app, passport, dbservicos, dbescolhas, dbchamadas)
 		res.status(500).render('500.ejs');
 	});
 
-	function isLoggedIn(req, res, next) {
-		if (req.isAuthenticated()) return next();
-		res.redirect('/');
-	};
+};
+
+function isLoggedIn(req, res, next) {
+	console.log(req.isAuthenticated());
+	if (req.isAuthenticated()) 
+		return next();
+	
+	res.redirect('/login');
 }

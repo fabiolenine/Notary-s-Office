@@ -43,7 +43,7 @@ angular.module("sequenceCTRLPainel",['angular.filter'])
 		restListar(vUrl, {});
 	};
 	
-	var socket = io.connect('http://10.1.1.4:8080');
+	var socket = io.connect('http://192.168.0.5:8080');
 	
 	socket.on('chamada', function (dados) {
 		$scope.$apply(function () {

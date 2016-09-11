@@ -75,7 +75,7 @@ angular.module("sequenceCTRLLista",['angular.filter'])
 		return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
 	};
 	
-	var socket = io.connect('http://10.1.1.4:8080'); //O IP ou Endereço do servidor;
+	var socket = io.connect('http://192.168.0.5:8080'); //O IP ou Endereço do servidor;
 	
 	socket.on('escolha', function (dados) {
 		$scope.dadosretorno.push(dados);

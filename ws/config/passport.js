@@ -1,14 +1,15 @@
+
 var LocalStrategy 	= require('passport-local').Strategy;
 var User			= require('../modulos/modelSequenceAuth.js');
 
-module.exports = function(passport) {
+module.exports = function(mongoose, passport) {
 	
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
 	});
 	
 	passport.deserializeUser(function(id, done) {
-		User.findById(id, function(err, user) {
+		User.model.findById(id, function(err, user) {
 			done(err,user);
 		});
 	});
@@ -19,15 +20,15 @@ module.exports = function(passport) {
 		passReqToCallback	: true
 	}, function(req, email, password, done) {
 		process.nextTick(function() {
-			User.findOne({'local.email': email}, function(err, user) {
+			User.model.findOne({'local.email': email}, function(err, user) {
 				if (err) return done(err);
 				if (user) {
 					return done(null, false, req.flash('signupMessage','That email is already taken.'));
 				} else {
-					var newUser = new User();
+					var newUser = new User.model();
 					
 					newUser.local.email		= email;
-					newUser.local.passport	= newUser.generateHash(password);
+					newUser.local.password	= newUser.generateHash(password);
 					
 					newUser.save(function(err) {
 						if (err) throw err;
@@ -35,6 +36,27 @@ module.exports = function(passport) {
 					});		
 				};
 			});
+		});
+	}));
+	
+	passport.use('local-login', new LocalStrategy({
+		usernameField		: 'email',
+		passwordField		: 'password',
+		passReqToCallback	: true
+	},
+	function(req, email, password, done){
+		User.model.findOne({'local.email' : email}, function(err, user) {
+			
+			if (err) 
+				return done(err);
+			
+			if (!user) 
+				return done(null, false, req.flash('loginMessage', 'No user found.'));
+			
+			if (!user.validPassword(password)) 
+				return done(null, false, req.flash('loginMessage','Oops! Wrong password.'));
+			
+			return done(null,user);
 		});
 	}));
 	
